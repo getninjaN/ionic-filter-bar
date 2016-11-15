@@ -438,10 +438,11 @@ angular.module('jett.ionic.filter.bar', ['ionic']);
             favoritesTitle: 'Favorite Searches',
             favoritesAddPlaceholder: 'Add a search term',
             favoritesEnabled: false,
-            favoritesKey: 'ionic_filter_bar_favorites'
+            favoritesKey: 'ionic_filter_bar_favorites',
+            value: ''
           }, opts);
 
-          scope.data = {filterText: ''};
+          scope.data = {filterText: scope.value};
 
           //if no custom theme was configured, get theme of containers bar-header
           if (!scope.config.theme) {
@@ -625,7 +626,11 @@ angular.module('jett.ionic.filter.bar', ['ionic']);
               $timeout(function () {
                 filterWrapperEl.addClass('filter-bar-in');
                 scope.focusInput();
-                scope.showBackdrop();
+
+                if(!scope.data.filterText.length) {
+                  scope.showBackdrop();
+                }
+
                 (done || angular.noop)();
               }, 20, false);
             });
